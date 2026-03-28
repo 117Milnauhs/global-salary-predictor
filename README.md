@@ -12,7 +12,7 @@ than Zambia for equivalent work.
 
 ## Key Findings
 
-![Salary by country](chart1_salary_by_country.png)
+![Salary by country](chart1_salary_by_country.png.png)
 
 ![Salary by income group](chart2_salary_by_income_group.png)
 
