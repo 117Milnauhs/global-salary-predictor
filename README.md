@@ -8,7 +8,7 @@ across different countries. This tool reveals that Switzerland pays 46x more
 than Zambia for equivalent work.
 
 ## Live Demo
-[Add your Streamlit link here once deployed]
+https://global-salary-predictor-5uxwgh7qjbbuav6qnvxb6g.streamlit.app/
 
 ## Key Findings
 
