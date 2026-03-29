@@ -7,18 +7,18 @@ base_path = r"D:\Projects\salary-predictor\global-salary-predictor"
 
 # Load the saved model and encoders
 try:
-    model = joblib.load(r"D:\Projects\salary-predictor\global-salary-predictor\salary_model.pkl")
-    le_region = joblib.load(r"D:\Projects\salary-predictor\global-salary-predictor\le_region.pkl")
-    le_income = joblib.load(r"D:\Projects\salary-predictor\global-salary-predictor\le_income.pkl")
-    le_continent = joblib.load(r"D:\Projects\salary-predictor\global-salary-predictor\le_continent.pkl")
+    model = joblib.load("salary_model.pkl")
+    le_region = joblib.load("le_region.pkl")
+    le_income = joblib.load("le_income.pkl")
+    le_continent = joblib.load("le_continent.pkl")
     st.success("Model loaded successfully!")
 except Exception as e:
     st.error(f"Error loading model: {e}")
     st.stop()
 
 # Load country data
-salary_df = pd.read_csv(r"D:\Projects\salary-predictor\global-salary-predictor\salary_data.csv")
-meta_df = pd.read_csv(r"D:\Projects\salary-predictor\global-salary-predictor\EdStatsCountry.csv")
+salary_df = pd.read_csv("salary_data.csv")
+meta_df = pd.read_csv("EdStatsCountry.csv")
 meta_df = meta_df[['Short Name', 'Region', 'Income Group']].dropna()
 
 # Page title and description 
@@ -35,8 +35,6 @@ st.write('**Option 2: Select manually**')
 
 region = st.selectbox('Region', le_region.classes_.tolist())
 income =  st.selectbox('Income Group', le_income.classes_.tolist())
-continent = st.selectbox('Continent', le_continent.classes_.tolist())
-
 
 if country_choice != '-- Select a country --':
     match = meta_df[meta_df['Short Name'] == country_choice]
@@ -51,7 +49,7 @@ st.caption('Data source: SalaryExplorer (221 countries) merged with World Bank E
 if st.button('Predict Salary'):
     region_enc = le_region.transform([region])[0]
     income_enc = le_income.transform([income])[0]
-    continent_enc = le_continent.transform([continent])[0]
+    continent_enc = 0
 
     input_df = pd.DataFrame(
         [[region_enc, income_enc, continent_enc]],
@@ -62,4 +60,4 @@ if st.button('Predict Salary'):
 
     st.success(f'Estimated Average Annual Salary: ${prediction:,.0f} USD')
     st.write(f'This is approximately ${prediction/12:,.0f} USD per month.')
-    st.write('For reference: Switzerland averages USD 135,000/year. Zambia averages USD 3000/year.')
+    st.write('For reference: Switzerland averages USD 135,000/year. Zambia averages USD 6500/year.')
